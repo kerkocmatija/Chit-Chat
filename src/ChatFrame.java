@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -16,23 +17,27 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.JTextPane;
+
 import org.apache.http.client.ClientProtocolException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 public class ChatFrame extends JFrame implements ActionListener, KeyListener, WindowListener {
+	
 
 	private static final long serialVersionUID = -7574172929809672200L;
 
 	JFrame frame = new JFrame("ChitChat");
-	private JTextArea output;
+	private JEditorPane output;
 	private JTextField input;
 	private JTextField inputKomu;
 	private JTextArea oknoAktivni;
@@ -95,7 +100,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		
 		
 		// Ustvarimo okno za izpisovanje sporoèil.
-		this.output = new JTextArea(20, 40);
+		this.output = new JEditorPane();
 		this.sp = new JScrollPane(output);
 		this.output.setEditable(false);
 		GridBagConstraints outputConstraint = new GridBagConstraints();
@@ -109,7 +114,10 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		// Ustvarimo prostor za seznam aktivnih uporabnikov.
 		this.oknoAktivni = new JTextArea(20, 10);
 		oknoAktivni.setEditable(false);
-		oknoAktivni.setBorder(BorderFactory.createLineBorder(Color.green.darker(), 2));
+		Font font = new Font("Calibri", Font.BOLD, 14);
+		oknoAktivni.setFont(font);
+		oknoAktivni.setForeground(Color.GREEN.darker().darker());
+		oknoAktivni.setBorder(BorderFactory.createLineBorder(Color.GRAY.darker(), 1));
 		GridBagConstraints oknoAktivniConstraint = new GridBagConstraints();
 		oknoAktivniConstraint.gridx = 1;
 		oknoAktivniConstraint.gridx = 1;
