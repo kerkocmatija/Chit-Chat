@@ -43,8 +43,8 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 	private JButton prijavaGumb;
 	private JButton odjavaGumb;
 	private JButton aktivniGumb;
+	private JButton pobrisiGumb;
 	private IzpisovalniRobot robot;
-
 	private String user;
 
 
@@ -81,11 +81,19 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 
 		this.aktivniGumb = new JButton("Aktivni");
 		aktivniGumb.addActionListener(this);
-		vzdevekpanel.add(aktivniGumb);
+		pane.add(aktivniGumb);
 		GridBagConstraints aktivniGumbConstraint = new GridBagConstraints();
 		aktivniGumbConstraint.gridx = 1;
 		aktivniGumbConstraint.gridy = 1;
-
+		
+		this.pobrisiGumb = new JButton("Pobriši");
+		pobrisiGumb.addActionListener(this);
+		vzdevekpanel.add(pobrisiGumb);
+		GridBagConstraints pobrisiGumbConstraint = new GridBagConstraints();
+		pobrisiGumbConstraint.gridx = 1;
+		pobrisiGumbConstraint.gridy = 1;
+		
+		
 		// Ustvarimo okno za izpisovanje sporoèil.
 		this.output = new JTextArea(20, 40);
 		this.sp = new JScrollPane(output);
@@ -241,6 +249,8 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
+		} else if (e.getSource() == pobrisiGumb) {
+			output.setText("");
 		}
 	} 
 
@@ -259,7 +269,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 			}
 		}
 	}
-
+	
 	// Pravilno zapiramo okno.
 	@Override
 	public void windowClosed(WindowEvent e) {
