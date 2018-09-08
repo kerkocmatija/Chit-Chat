@@ -19,12 +19,13 @@ public class ExtendedKlient {
 	
 	// VRNEMO SEZNAM PRIJAVLJENIH UPORABNIKOV. 
 	public static List<Uporabnik> seznam() throws JsonParseException, JsonMappingException, IOException {
-		String prijavljeni = Request.Get("http://chitchat.andrej.com/users").execute().returnContent().asString();
 		
+		String prijavljeni = Request.Get("http://chitchat.andrej.com/users").execute().returnContent().asString();
 		ObjectMapper mapper = new ObjectMapper();
 		mapper.setDateFormat(new ISO8601DateFormat());
 		TypeReference<List<Uporabnik>> t = new TypeReference<List<Uporabnik>>() { };
 		List<Uporabnik> uporabniki = mapper.readValue(prijavljeni, t);
+		
 		return uporabniki;
 	}
 	
@@ -32,10 +33,8 @@ public class ExtendedKlient {
 	public static void prijavi(String uporabnik) throws Exception {
 		
 		URI uri = new URIBuilder(url + "/users").addParameter("username", uporabnik).build();
-
 		String responseBody;
 		responseBody = Request.Post(uri).execute().returnContent().asString();
-
 		System.out.println(responseBody);
 	}
 	
@@ -43,6 +42,7 @@ public class ExtendedKlient {
 	// Problem je, èe smo uporabnika že izpisali in želimo okno zapreti 'na prazno'.
 	// Ta problem je boljše reševati drugje.
 	public static void odjavi(String uporabnik) throws IOException, URISyntaxException {
+		
 		URIBuilder builder = new URIBuilder("http://chitchat.andrej.com/users").addParameter("username", uporabnik);
 		URI url = new URI(builder.toString());
 		String responseBody;
@@ -53,6 +53,7 @@ public class ExtendedKlient {
 	
 	// PREJEMANJE SPOROÈIL.
 	public static List<Sporocilo> prejmi(String uporabnik) throws JsonParseException, JsonMappingException, IOException, URISyntaxException {
+		
 		URI uri = new URIBuilder(url + "/messages").addParameter("username", uporabnik).build();
 		String sporocilo = Request.Get(uri).execute().returnContent().asString();
 		ObjectMapper mapper = new ObjectMapper();
@@ -65,6 +66,7 @@ public class ExtendedKlient {
 		
 	// POŠILJANJE SPOROÈIL.
 	public static void poslji(String sender, String reciever, String message) throws URISyntaxException {
+		
 		URI uri = new URIBuilder(url + "/messages").addParameter("username", sender).build();
 		String celotnoSporocilo = "";
 			if (reciever == null) {
@@ -74,7 +76,6 @@ public class ExtendedKlient {
 			celotnoSporocilo = "{\"global\" : false, \"recipient\" : \"" + reciever + "\", \"text\" :\"" + message + "\"}";	
 			}
 			try {
-			
 			String responseBody = Request.Post(uri).bodyString(celotnoSporocilo, ContentType.APPLICATION_JSON).execute().returnContent().asString();
 			System.out.println(responseBody);
 
