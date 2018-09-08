@@ -154,7 +154,6 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		// Ustvarimo okno za izpisovanje sporoèil.
 		this.output = new JTextArea(20, 40);
 		this.sp = new JScrollPane(output);
-		sp.setMaximumSize(new Dimension(20, 40));
 		this.output.setEditable(false);
 		GridBagConstraints outputConstraint = new GridBagConstraints();
 		outputConstraint.gridx = 0;
@@ -209,12 +208,13 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		inputConstraint2.weighty = 1;
 		pane.add(inputKomu, inputConstraint2);
 
-		// Naredimo robota za izpisovanje
+		// Naredimo robota za izpisovanje.
 		this.robot = new IzpisovalniRobot(this);
 
+		// Nastavimo privzeti vzdevek.
 		vzdevek.setText(System.getProperty("user.name"));
 		addWindowListener(this);
-		setLocationRelativeTo(this);
+		
 	}
 
 	/**
@@ -332,15 +332,15 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		 if (e.getSource() == menuNasveti) {
 			JFrame frame1 = new JFrame("Navodila");
 			JLabel label1 = new JLabel("My label");
-			label1.setText("<html> <center> <font size=10>NAVODILA</font></center>"
-							+ "<br> 1.) Izberi si vzdevek. Privzeti vzdevek je tvoje uporabniško ime."
+			label1.setText("<html> <center> <font size=11>NAVODILA</font></center>"
+							+ "<br> <font size=4>1.) Izberi si vzdevek. Privzeti vzdevek je tvoje uporabniško ime."
 							+ "<br> 2.) Prijavi se."
 							+ "<br> 3.) Èe želiš poslati javno sporoèilo samo vpiši sporoèilo ter pritisni Enter."
 							+ "<br> 4.) Èe želiš poslati zasebno sporoèilo, med aktivnimi uporabniki izberi "
 							+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; prejemnika ter njegovo ime vpiši v skrajno desno spodnje okence."
 							+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; Sedaj pošiljaš zasebna sporoèila."
 							+ "<br> 5.) Preizkusi tudi druge opcije v meniju."
-							+ "<br> 6.) Klepetaj s prijatelji. </html>");
+							+ "<br> 6.) Klepetaj s prijatelji.</font> </html>");
 			frame1.add(label1);
 			frame1.pack();
 			toFront();
