@@ -30,6 +30,7 @@ public class ExtendedKlient {
 	
 	// PRIJAVA UPORABNIKA.
 	public static void prijavi(String uporabnik) throws Exception {
+		
 		URI uri = new URIBuilder(url + "/users").addParameter("username", uporabnik).build();
 
 		String responseBody;
