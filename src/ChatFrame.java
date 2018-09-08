@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -17,27 +18,30 @@ import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.JTextPane;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 import org.apache.http.client.ClientProtocolException;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
-public class ChatFrame extends JFrame implements ActionListener, KeyListener, WindowListener {
+public class ChatFrame extends JFrame implements ActionListener, KeyListener, WindowListener, MenuListener {
 	
 
 	private static final long serialVersionUID = -7574172929809672200L;
 
 	JFrame frame = new JFrame("ChitChat");
-	private JEditorPane output;
+	private JTextArea output;
 	private JTextField input;
 	private JTextField inputKomu;
 	private JTextArea oknoAktivni;
@@ -52,6 +56,18 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 	private IzpisovalniRobot robot;
 	private String user;
 
+	private JMenuBar menuBar;
+	private JMenu pomozniMenu;
+	private JMenu menuNavodila;
+	private JMenuItem menuPomoc;
+	private JMenu barvaPogovora;
+	private JMenuItem menuCrna;
+	private JMenuItem menuRdeca;
+	private JMenuItem menuModra;
+	private JMenuItem menuRumena;
+	private JMenuItem zaStarejse;
+	private JMenuItem menuNasveti;
+    
 
 	public ChatFrame() {
 		super();
@@ -98,10 +114,47 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		pobrisiGumbConstraint.gridx = 1;
 		pobrisiGumbConstraint.gridy = 1;
 		
+		// Dodamo vrstico za menu.
+		this.menuBar = new JMenuBar();
+		setJMenuBar(menuBar);
+		
+		this.pomozniMenu = new JMenu("Chit-Chat");
+		menuBar.add(pomozniMenu);
+		
+		this.barvaPogovora = new JMenu("Barva");
+		menuBar.add(barvaPogovora);
+		
+		this.menuCrna = new JMenuItem("Èrna");
+		barvaPogovora.add(menuCrna);
+		menuCrna.addActionListener(this);
+		this.menuRdeca = new JMenuItem("Rdeèa");
+		barvaPogovora.add(menuRdeca);
+		menuRdeca.addActionListener(this);
+		this.menuModra = new JMenuItem("Modra");
+		barvaPogovora.add(menuModra);
+		menuModra.addActionListener(this);
+		this.menuRumena = new JMenuItem("Rumena");
+		barvaPogovora.add(menuRumena);
+		menuRumena.addActionListener(this);
+		
+		this.menuNavodila = new JMenu("Navodila");
+		menuBar.add(menuNavodila);
+		
+		this.menuNasveti = new JMenuItem("Nasveti");
+		menuNasveti.addActionListener(this);
+		menuNavodila.add(menuNasveti);
+		this.menuPomoc = new JMenuItem("Pomoè");
+		menuPomoc.addActionListener(this);
+		menuNavodila.add(menuPomoc);
+		this.zaStarejse = new JMenuItem("Za slabovidne");
+		zaStarejse.addActionListener(this);
+		menuNavodila.add(zaStarejse);
+		
 		
 		// Ustvarimo okno za izpisovanje sporoèil.
-		this.output = new JEditorPane();
+		this.output = new JTextArea(20, 40);
 		this.sp = new JScrollPane(output);
+		sp.setMaximumSize(new Dimension(20, 40));
 		this.output.setEditable(false);
 		GridBagConstraints outputConstraint = new GridBagConstraints();
 		outputConstraint.gridx = 0;
@@ -129,6 +182,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 
 		// Ustvarimo vpisovalno polje.
 		this.input = new JTextField(40);
+		input.setMaximumSize(new Dimension(40, 10));
 		GridBagConstraints inputConstraint = new GridBagConstraints();
 		inputConstraint.gridx = 0;
 		inputConstraint.gridy = 2;
@@ -146,6 +200,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 
 		// Ustvarimo polje za vpis prejemnika našega sporoèila.
 		this.inputKomu = new JTextField(10);
+		sp.setMaximumSize(new Dimension(10, 10));
 		GridBagConstraints inputConstraint2 = new GridBagConstraints();
 		inputConstraint2.gridx = 1;
 		inputConstraint2.gridy = 2;
@@ -159,6 +214,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 
 		vzdevek.setText(System.getProperty("user.name"));
 		addWindowListener(this);
+		setLocationRelativeTo(this);
 	}
 
 	/**
@@ -260,6 +316,48 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		} else if (e.getSource() == pobrisiGumb) {
 			output.setText("");
 		}
+		
+		// Spreminjanje barve.
+		  if (e.getSource() == menuCrna) {
+			output.setForeground(Color.BLACK);
+		} if (e.getSource() == menuRdeca) {
+			output.setForeground(Color.RED);
+		} if (e.getSource() == menuModra) {
+			output.setForeground(Color.BLUE);
+		} if (e.getSource() == menuRumena){
+			output.setForeground(Color.YELLOW);
+		} 
+		
+		// Nastavitve menijev.
+		 if (e.getSource() == menuNasveti) {
+			JFrame frame1 = new JFrame("Navodila");
+			JLabel label1 = new JLabel("My label");
+			label1.setText("<html> <center> <font size=10>NAVODILA</font></center>"
+							+ "<br> 1.) Izberi si vzdevek. Privzeti vzdevek je tvoje uporabniško ime."
+							+ "<br> 2.) Prijavi se."
+							+ "<br> 3.) Èe želiš poslati javno sporoèilo samo vpiši sporoèilo ter pritisni Enter."
+							+ "<br> 4.) Èe želiš poslati zasebno sporoèilo, med aktivnimi uporabniki izberi "
+							+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; prejemnika ter njegovo ime vpiši v skrajno desno spodnje okence."
+							+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; Sedaj pošiljaš zasebna sporoèila."
+							+ "<br> 5.) Preizkusi tudi druge opcije v meniju."
+							+ "<br> 6.) Klepetaj s prijatelji. </html>");
+			frame1.add(label1);
+			frame1.pack();
+			toFront();
+			frame1.setLocationRelativeTo(null);
+			frame1.setVisible(true);
+			} if (e.getSource() == menuPomoc) {
+			JFrame frame1 = new JFrame("Pomoè");
+			JLabel label1 = new JLabel("My label");
+			label1.setText("<html> <center> <font size=9>Si poskusil ponovno pognati program?</font></center></html>");
+			frame1.add(label1);
+			frame1.pack();
+			toFront();
+			frame1.setLocationRelativeTo(null);
+			frame1.setVisible(true);
+			} if (e.getSource() == zaStarejse) {
+			output.setFont(new Font("Calibri", Font.BOLD, 13));
+			}
 	} 
 
 	@Override
@@ -359,6 +457,24 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 
 	public void setUser(String user) {
 		this.user = user;
+	}
+
+	// Imeplementacija metod za MenuListener.
+	@Override
+	public void menuCanceled(MenuEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void menuDeselected(MenuEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void menuSelected(MenuEvent e) {
+		// TODO Auto-generated method stub
 	}
 
 }
