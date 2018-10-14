@@ -69,6 +69,8 @@ public class ExtendedKlient {
 	public static void poslji(String sender, String reciever, String message) throws URISyntaxException {
 		
 		URI uri = new URIBuilder(url + "/messages").addParameter("username", sender).build();
+		
+		//Preverimo ali je sporoèilo zasebno ali javno.
 		String celotnoSporocilo = "";
 			if (reciever == null) {
 			celotnoSporocilo = "{\"global\" : true, \"text\" :\"" + message + "\"}";
