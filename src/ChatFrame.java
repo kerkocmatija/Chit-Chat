@@ -189,6 +189,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		this.input = new JTextField(40);
 		input.setMaximumSize(new Dimension(40, 10));
 		GridBagConstraints inputConstraint = new GridBagConstraints();
+		inputConstraint.fill = GridBagConstraints.HORIZONTAL;
 		inputConstraint.gridx = 0;
 		inputConstraint.gridy = 2;
 		inputConstraint.weightx = 1;
