@@ -58,19 +58,18 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 
 	private JMenuBar menuBar;
 	private JMenu menuNavodila;
+
 	private JMenu barvaPogovora;
 	private JMenuItem menuCrna;
 	private JMenuItem menuRdeca;
 	private JMenuItem menuModra;
 	private JMenuItem menuRumena;
+
 	private JMenuItem menuNasveti;
 
 	private JMenu velikostPogovora;
-
 	private JMenuItem menu14pt;
-
 	private JMenuItem menu16pt;
-
 	private JMenuItem menu20pt;
 
 
@@ -122,7 +121,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		// Dodamo vrstico za menu.
 		this.menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		
+
 		this.menuNavodila = new JMenu("Navodila");
 		menuBar.add(menuNavodila);
 
@@ -145,10 +144,10 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		this.menuRumena = new JMenuItem("Rumena");
 		barvaPogovora.add(menuRumena);
 		menuRumena.addActionListener(this);
-		
+
 		this.velikostPogovora = new JMenu("Velikost pisave");
 		menuBar.add(velikostPogovora);
-		
+
 		this.menu14pt = new JMenuItem("14 pt");
 		velikostPogovora.add(menu14pt);
 		menu14pt.addActionListener(this);
@@ -158,7 +157,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		this.menu20pt = new JMenuItem("20 pt");
 		velikostPogovora.add(menu20pt);
 		menu20pt.addActionListener(this);
-		
+
 
 		// Ustvarimo okno za izpisovanje sporočil.
 		this.output = new JTextArea(20, 40);
@@ -192,7 +191,6 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		GridBagConstraints inputConstraint = new GridBagConstraints();
 		inputConstraint.gridx = 0;
 		inputConstraint.gridy = 2;
-		inputConstraint.fill = GridBagConstraints.HORIZONTAL;
 		inputConstraint.weightx = 1;
 		inputConstraint.weighty = 0;
 		pane.add(input, inputConstraint);
@@ -250,14 +248,14 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		String prejemnik = inputKomu.getText();
 		if (prejemnik.isEmpty()) {
 			if (LocalDateTime.now().getMinute() <= 9) {
-				output.setText(chat + person + ": " + message + " (" + LocalDateTime.now().getHour() 
+				output.setText(chat + person + ": " + message + " (Poslano ob: " + LocalDateTime.now().getHour() 
 						+ "." + "0" + LocalDateTime.now().getMinute() + ")" + "\n");
 			} else {
-				output.setText(chat + person + ": " + message + " (" + LocalDateTime.now().getHour() 
+				output.setText(chat + person + ": " + message + " (Poslano ob: " + LocalDateTime.now().getHour() 
 						+ "." + LocalDateTime.now().getMinute() + ")" + "\n");
 			}
 		} else {
-			output.setText(chat + person + "->" + prejemnik + ": " + message + " (" + LocalDateTime.now().getHour() 
+			output.setText(chat + person + "->" + prejemnik + ": " + message + " (Poslano ob: " + LocalDateTime.now().getHour() 
 					+ "." + LocalDateTime.now().getMinute() + ")" + "\n");
 		}
 	}
@@ -273,12 +271,12 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 					String chat = output.getText();
 					for (Sporocilo sporocilo : vsaSporocila) {
 						if (sporocilo.isGlobal()) {
-							output.setText(chat + sporocilo.getSender() + ": " + sporocilo.getText() + " (" +
+							output.setText(chat + sporocilo.getSender() + ": " + sporocilo.getText() + " (Poslano ob: " +
 									sporocilo.getSent_at().getHours() + "." +
 									sporocilo.getSent_at().getMinutes() + ")" + "\n");
 						} else {
 							output.setText(chat + sporocilo.getSender() + "->" + sporocilo.getRecipient() + ": " +
-									sporocilo.getText() + " (" + sporocilo.getSent_at().getHours() + "." +
+									sporocilo.getText() + " (Poslano ob: " + sporocilo.getSent_at().getHours() + "." +
 									sporocilo.getSent_at().getMinutes() + ")" + "\n");
 						}
 					}
@@ -360,7 +358,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 					+ "<br> 4.) če želiš poslati zasebno sporočilo, med aktivnimi uporabniki izberi "
 					+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; prejemnika ter njegovo ime vpiši v skrajno desno spodnje okence."
 					+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; Sedaj pošiljaš zasebna sporočila."
-					+ "<br> 5.) Preizkusi tudi druge opcije v meniju."
+					+ "<br> 5.) V meniju lahko izbereš tudi drugačno barvo ter velikost pisave."
 					+ "<br> 6.) Klepetaj s prijatelji.</font> </html>");
 			frame1.add(label1);
 			frame1.pack();
@@ -375,7 +373,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 			output.setFont(output.getFont().deriveFont(16f));
 		}
 		if (e.getSource() == menu20pt) {
-				output.setFont(output.getFont().deriveFont(20f));
+			output.setFont(output.getFont().deriveFont(20f));
 		}
 	} 
 
@@ -478,22 +476,22 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		this.user = user;
 	}
 
-	// Imeplementacija metod za MenuListener.
 	@Override
-	public void menuCanceled(MenuEvent e) {
+	public void menuCanceled(MenuEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void menuDeselected(MenuEvent e) {
+	public void menuDeselected(MenuEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void menuSelected(MenuEvent e) {
+	public void menuSelected(MenuEvent arg0) {
 		// TODO Auto-generated method stub
+
 	}
 
 }

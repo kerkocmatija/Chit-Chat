@@ -39,6 +39,6 @@ public class IzpisovalniRobot extends TimerTask {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 }
