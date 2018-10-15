@@ -1,6 +1,6 @@
 import java.util.Date;
 
-// DEFINICIJA SPOROÈILA.
+// DEFINICIJA SPOROÄŒILA.
 
 
 public class Sporocilo {

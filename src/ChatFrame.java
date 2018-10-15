@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -14,6 +13,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -57,16 +57,21 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 	private String user;
 
 	private JMenuBar menuBar;
-	private JMenu pomozniMenu;
 	private JMenu menuNavodila;
-	private JMenuItem menuPomoc;
 	private JMenu barvaPogovora;
 	private JMenuItem menuCrna;
 	private JMenuItem menuRdeca;
 	private JMenuItem menuModra;
 	private JMenuItem menuRumena;
-	private JMenuItem zaStarejse;
 	private JMenuItem menuNasveti;
+
+	private JMenu velikostPogovora;
+
+	private JMenuItem menu14pt;
+
+	private JMenuItem menu16pt;
+
+	private JMenuItem menu20pt;
 
 
 	public ChatFrame() {
@@ -107,7 +112,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		aktivniGumbConstraint.gridx = 1;
 		aktivniGumbConstraint.gridy = 1;
 
-		this.pobrisiGumb = new JButton("Pobri�i");
+		this.pobrisiGumb = new JButton("Pobriši");
 		pobrisiGumb.addActionListener(this);
 		vzdevekpanel.add(pobrisiGumb);
 		GridBagConstraints pobrisiGumbConstraint = new GridBagConstraints();
@@ -117,9 +122,13 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		// Dodamo vrstico za menu.
 		this.menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
+		this.menuNavodila = new JMenu("Navodila");
+		menuBar.add(menuNavodila);
 
-		this.pomozniMenu = new JMenu("Chit-Chat");
-		menuBar.add(pomozniMenu);
+		this.menuNasveti = new JMenuItem("Navodila");
+		menuNasveti.addActionListener(this);
+		menuNavodila.add(menuNasveti);
 
 		this.barvaPogovora = new JMenu("Barva");
 		menuBar.add(barvaPogovora);
@@ -127,7 +136,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		this.menuCrna = new JMenuItem("Črna");
 		barvaPogovora.add(menuCrna);
 		menuCrna.addActionListener(this);
-		this.menuRdeca = new JMenuItem("Rde�a");
+		this.menuRdeca = new JMenuItem("Rdeča");
 		barvaPogovora.add(menuRdeca);
 		menuRdeca.addActionListener(this);
 		this.menuModra = new JMenuItem("Modra");
@@ -136,26 +145,25 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		this.menuRumena = new JMenuItem("Rumena");
 		barvaPogovora.add(menuRumena);
 		menuRumena.addActionListener(this);
-
-		this.menuNavodila = new JMenu("Navodila");
-		menuBar.add(menuNavodila);
-
-		this.menuNasveti = new JMenuItem("Nasveti");
-		menuNasveti.addActionListener(this);
-		menuNavodila.add(menuNasveti);
-		this.menuPomoc = new JMenuItem("Pomoč");
-		menuPomoc.addActionListener(this);
-		menuNavodila.add(menuPomoc);
-		this.zaStarejse = new JMenuItem("Za slabovidne");
-		zaStarejse.addActionListener(this);
-		menuNavodila.add(zaStarejse);
-
+		
+		this.velikostPogovora = new JMenu("Velikost pisave");
+		menuBar.add(velikostPogovora);
+		
+		this.menu14pt = new JMenuItem("14 pt");
+		velikostPogovora.add(menu14pt);
+		menu14pt.addActionListener(this);
+		this.menu16pt = new JMenuItem("16 pt");
+		velikostPogovora.add(menu16pt);
+		menu16pt.addActionListener(this);
+		this.menu20pt = new JMenuItem("20 pt");
+		velikostPogovora.add(menu20pt);
+		menu20pt.addActionListener(this);
+		
 
 		// Ustvarimo okno za izpisovanje sporočil.
 		this.output = new JTextArea(20, 40);
 		this.sp = new JScrollPane(output);
 		this.output.setEditable(false);
-		this.sp.setHorizontalScrollBar(null);
 		GridBagConstraints outputConstraint = new GridBagConstraints();
 		outputConstraint.gridx = 0;
 		outputConstraint.gridy = 1;
@@ -167,8 +175,6 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		// Ustvarimo prostor za seznam aktivnih uporabnikov.
 		this.oknoAktivni = new JTextArea(20, 10);
 		oknoAktivni.setEditable(false);
-		Font font = new Font("Calibri", Font.BOLD, 14);
-		oknoAktivni.setFont(font);
 		oknoAktivni.setForeground(Color.GREEN.darker().darker());
 		oknoAktivni.setBorder(BorderFactory.createLineBorder(Color.GRAY.darker(), 1));
 		GridBagConstraints oknoAktivniConstraint = new GridBagConstraints();
@@ -243,13 +249,21 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		String chat = output.getText();
 		String prejemnik = inputKomu.getText();
 		if (prejemnik.isEmpty()) {
-			output.setText(chat + person + ": " + message + "\n");
+			if (LocalDateTime.now().getMinute() <= 9) {
+				output.setText(chat + person + ": " + message + " (" + LocalDateTime.now().getHour() 
+						+ "." + "0" + LocalDateTime.now().getMinute() + ")" + "\n");
+			} else {
+				output.setText(chat + person + ": " + message + " (" + LocalDateTime.now().getHour() 
+						+ "." + LocalDateTime.now().getMinute() + ")" + "\n");
+			}
 		} else {
-			output.setText(chat + person + "->" + prejemnik + ": " + message + "\n");
+			output.setText(chat + person + "->" + prejemnik + ": " + message + " (" + LocalDateTime.now().getHour() 
+					+ "." + LocalDateTime.now().getMinute() + ")" + "\n");
 		}
 	}
 
 	// Izpis prejetih sporočil.
+	@SuppressWarnings("deprecation")
 	public void dodajPrejeta() throws ClientProtocolException, URISyntaxException, IOException {
 		try {	
 			String vzdevek1 = vzdevek.getText();
@@ -259,10 +273,13 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 					String chat = output.getText();
 					for (Sporocilo sporocilo : vsaSporocila) {
 						if (sporocilo.isGlobal()) {
-							output.setText(chat + sporocilo.getSender() + ": " + sporocilo.getText() + "\n");
+							output.setText(chat + sporocilo.getSender() + ": " + sporocilo.getText() + " (" +
+									sporocilo.getSent_at().getHours() + "." +
+									sporocilo.getSent_at().getMinutes() + ")" + "\n");
 						} else {
-							output.setText(chat + sporocilo.getSender() + "->" + sporocilo.getRecipient() + ": " 
-									+ sporocilo.getText() + "\n");
+							output.setText(chat + sporocilo.getSender() + "->" + sporocilo.getRecipient() + ": " +
+									sporocilo.getText() + " (" + sporocilo.getSent_at().getHours() + "." +
+									sporocilo.getSent_at().getMinutes() + ")" + "\n");
 						}
 					}
 				}
@@ -275,7 +292,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		List<Uporabnik> uporabniki = ExtendedKlient.seznam();
 		String signedInUsers = "";
 		for (Uporabnik user : uporabniki) {
-			signedInUsers += user.getUsername() + "\n";
+			signedInUsers += "•" + user.getUsername() + "\n";
 		}
 		oknoAktivni.setText(signedInUsers);
 	}
@@ -321,15 +338,18 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		// Spreminjanje barve.
 		if (e.getSource() == menuCrna) {
 			output.setForeground(Color.BLACK);
-		} if (e.getSource() == menuRdeca) {
+		} 
+		if (e.getSource() == menuRdeca) {
 			output.setForeground(Color.RED);
-		} if (e.getSource() == menuModra) {
+		} 
+		if (e.getSource() == menuModra) {
 			output.setForeground(Color.BLUE);
-		} if (e.getSource() == menuRumena){
+		} 
+		if (e.getSource() == menuRumena){
 			output.setForeground(Color.YELLOW);
 		} 
 
-		// Nastavitve menijev.
+		// Nastavitve menujev.
 		if (e.getSource() == menuNasveti) {
 			JFrame frame1 = new JFrame("Navodila");
 			JLabel label1 = new JLabel("My label");
@@ -347,17 +367,15 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 			toFront();
 			frame1.setLocationRelativeTo(null);
 			frame1.setVisible(true);
-		} if (e.getSource() == menuPomoc) {
-			JFrame frame1 = new JFrame("Pomoč");
-			JLabel label1 = new JLabel("My label");
-			label1.setText("<html> <center> <font size=9>Si poskusil ponovno pognati program?</font></center></html>");
-			frame1.add(label1);
-			frame1.pack();
-			toFront();
-			frame1.setLocationRelativeTo(null);
-			frame1.setVisible(true);
-		} if (e.getSource() == zaStarejse) {
-			output.setFont(new Font("Calibri", Font.BOLD, 13));
+		}
+		if (e.getSource() == menu14pt) {
+			output.setFont(output.getFont().deriveFont(14f));
+		}
+		if (e.getSource() == menu16pt) {
+			output.setFont(output.getFont().deriveFont(16f));
+		}
+		if (e.getSource() == menu20pt) {
+				output.setFont(output.getFont().deriveFont(20f));
 		}
 	} 
 

@@ -40,8 +40,8 @@ public class ExtendedKlient {
 	}
 	
 	// ODJAVLJANJE UPORABNIKA.
-	// Problem je, Ëe smo uporabnika ûe izpisali in ûelimo okno zapreti 'na prazno'.
-	// Ta problem je boljöe reöevati drugje.
+	// Problem je, ƒçe smo uporabnika ≈æe izpisali in ≈æelimo okno zapreti 'na prazno'.
+	// Ta problem je bolj≈°e re≈°evati drugje.
 	public static void odjavi(String uporabnik) throws IOException, URISyntaxException {
 		
 		URIBuilder builder = new URIBuilder("http://chitchat.andrej.com/users").addParameter("username", uporabnik);
@@ -52,7 +52,7 @@ public class ExtendedKlient {
 		System.out.println("Odjavil sem uporabnika " + uporabnik + ".");
 	}
 	
-	// PREJEMANJE SPORO»IL.
+	// PREJEMANJE SPOROƒåIL.
 	public static List<Sporocilo> prejmi(String uporabnik) throws JsonParseException, JsonMappingException, IOException, URISyntaxException {
 		
 		URI uri = new URIBuilder(url + "/messages").addParameter("username", uporabnik).build();
@@ -65,12 +65,12 @@ public class ExtendedKlient {
 		return sporocila1;
 	}
 		
-	// POäILJANJE SPORO»IL.
+	// POÔøΩILJANJE SPOROÔøΩIL.
 	public static void poslji(String sender, String reciever, String message) throws URISyntaxException {
 		
 		URI uri = new URIBuilder(url + "/messages").addParameter("username", sender).build();
 		
-		//Preverimo ali je sporoËilo zasebno ali javno.
+		//Preverimo ali je sporoƒçilo zasebno ali javno.
 		String celotnoSporocilo = "";
 			if (reciever == null) {
 			celotnoSporocilo = "{\"global\" : true, \"text\" :\"" + message + "\"}";
