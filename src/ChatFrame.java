@@ -407,7 +407,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 			e1.printStackTrace();
 		}
 		robot.deactivate();
-		System.out.println("Zapiramo okno. Odjavljamo uporabnika. Ustavimo izpisovalnega robota.");
+		System.out.println("Zapiramo okno. Odjavljamo uporabnika.");
 	}
 
 
@@ -424,7 +424,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 			e1.printStackTrace();
 		}
 		robot.deactivate();
-		System.out.println("Zapiramo okno. Odjavljamo uporabnika. Ustavimo izpisovalnega robota.");
+		System.out.println("Zapiramo okno. Odjavljamo uporabnika.");
 	}
 
 	@Override

@@ -65,7 +65,7 @@ public class ExtendedKlient {
 		return sporocila1;
 	}
 
-	// PO�ILJANJE SPORO�IL.
+	// POŠILJANJE SPOROČIL.
 	public static void poslji(String sender, String reciever, String message) throws URISyntaxException {
 
 		URI uri = new URIBuilder(url + "/messages").addParameter("username", sender).build();
