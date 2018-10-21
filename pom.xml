@@ -4,6 +4,7 @@
   <artifactId>ChitChatCeloten</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <build>
+  <defaultGoal>install</defaultGoal>
     <sourceDirectory>src</sourceDirectory>
     <plugins>
       <plugin>
@@ -16,6 +17,9 @@
       </plugin>
     </plugins>
   </build>
+  <properties>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
   <dependencies>
   	<dependency>
   		<groupId>org.apache.httpcomponents</groupId>

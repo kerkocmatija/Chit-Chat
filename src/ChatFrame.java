@@ -1,6 +1,5 @@
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -63,7 +62,7 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 	private JMenuItem menuCrna;
 	private JMenuItem menuRdeca;
 	private JMenuItem menuModra;
-	private JMenuItem menuRumena;
+	private JMenuItem menuZelena;
 
 	private JMenuItem menuNasveti;
 
@@ -141,9 +140,9 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		this.menuModra = new JMenuItem("Modra");
 		barvaPogovora.add(menuModra);
 		menuModra.addActionListener(this);
-		this.menuRumena = new JMenuItem("Rumena");
-		barvaPogovora.add(menuRumena);
-		menuRumena.addActionListener(this);
+		this.menuZelena = new JMenuItem("Zelena");
+		barvaPogovora.add(menuZelena);
+		menuZelena.addActionListener(this);
 
 		this.velikostPogovora = new JMenu("Velikost pisave");
 		menuBar.add(velikostPogovora);
@@ -178,16 +177,14 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		oknoAktivni.setBorder(BorderFactory.createLineBorder(Color.GRAY.darker(), 1));
 		GridBagConstraints oknoAktivniConstraint = new GridBagConstraints();
 		oknoAktivniConstraint.gridx = 1;
-		oknoAktivniConstraint.gridx = 1;
 		oknoAktivniConstraint.gridy = 1;
 		oknoAktivniConstraint.fill = 1;
-		oknoAktivniConstraint.weightx = 1;
-		oknoAktivniConstraint.weighty = 1;
+		oknoAktivniConstraint.weightx = 0;
+		oknoAktivniConstraint.weighty = 0;
 		pane.add(oknoAktivni, oknoAktivniConstraint);
 
 		// Ustvarimo vpisovalno polje.
 		this.input = new JTextField(40);
-		input.setMaximumSize(new Dimension(40, 10));
 		GridBagConstraints inputConstraint = new GridBagConstraints();
 		inputConstraint.fill = GridBagConstraints.HORIZONTAL;
 		inputConstraint.gridx = 0;
@@ -272,12 +269,12 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 					String chat = output.getText();
 					for (Sporocilo sporocilo : vsaSporocila) {
 						if (sporocilo.isGlobal()) {
-							output.setText(chat + sporocilo.getSender() + ": " + sporocilo.getText() + " (Poslano ob: " +
+							output.setText(chat + sporocilo.getSender() + ": " + sporocilo.getText() + " (Prejeto ob: " +
 									sporocilo.getSent_at().getHours() + "." +
 									sporocilo.getSent_at().getMinutes() + ")" + "\n");
 						} else {
 							output.setText(chat + sporocilo.getSender() + "->" + sporocilo.getRecipient() + ": " +
-									sporocilo.getText() + " (Poslano ob: " + sporocilo.getSent_at().getHours() + "." +
+									sporocilo.getText() + " (Prejeto ob: " + sporocilo.getSent_at().getHours() + "." +
 									sporocilo.getSent_at().getMinutes() + ")" + "\n");
 						}
 					}
@@ -344,8 +341,8 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 		if (e.getSource() == menuModra) {
 			output.setForeground(Color.BLUE);
 		} 
-		if (e.getSource() == menuRumena){
-			output.setForeground(Color.YELLOW);
+		if (e.getSource() == menuZelena){
+			output.setForeground(Color.GREEN.darker());
 		} 
 
 		// Nastavitve menujev.
@@ -355,8 +352,8 @@ public class ChatFrame extends JFrame implements ActionListener, KeyListener, Wi
 			label1.setText("<html> <center> <font size=11>NAVODILA</font></center>"
 					+ "<br> <font size=4>1.) Izberi si vzdevek. Privzeti vzdevek je tvoje uporabniško ime."
 					+ "<br> 2.) Prijavi se."
-					+ "<br> 3.) če želiš poslati javno sporočilo samo vpiši sporočilo ter pritisni Enter."
-					+ "<br> 4.) če želiš poslati zasebno sporočilo, med aktivnimi uporabniki izberi "
+					+ "<br> 3.) Če želiš poslati javno sporočilo samo vpiši sporočilo ter pritisni Enter."
+					+ "<br> 4.) Če želiš poslati zasebno sporočilo, med aktivnimi uporabniki izberi "
 					+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; prejemnika ter njegovo ime vpiši v skrajno desno spodnje okence."
 					+ "<br> &nbsp;&nbsp;&nbsp;&nbsp; Sedaj pošiljaš zasebna sporočila."
 					+ "<br> 5.) V meniju lahko izbereš tudi drugačno barvo ter velikost pisave."

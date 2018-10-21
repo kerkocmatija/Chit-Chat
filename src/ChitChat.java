@@ -1,7 +1,7 @@
 import java.awt.Dimension;
 import java.io.IOException;
 
-// GLAVNI PROGRAM S POMO�JO KATEREGA PO�ENEMO VSE SKUPAJ.
+// GLAVNI PROGRAM S POMOČJO KATEREGA POŽENEMO VSE SKUPAJ.
 
 public class ChitChat {
 
