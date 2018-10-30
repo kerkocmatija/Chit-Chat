@@ -7,9 +7,10 @@ Izdelal sem program za pogovarjanje prek spleta, ki deluje preko strežnika "htt
 ## NAVODILA ZA UPORABO
 
 1.  Zaženemo datoteko ChitChat.java
-2.  Izberemo si vzdevek ter se prijavimo se v strežnik
+2.  Izberemo si vzdevek ter se prijavimo v strežnik
 3.  Če želimo sporočilo poslati vsem, le vtipkamo naše sporočilo ter pritisnemo Enter
 4.  Če želimo poslati zasebno sporočilo, med Aktivnimi uporabniki izberemo prejemnika, ter njegovo ime vpišemo v 
     desno spodnje okence
-5.  V menu-ju lahko izbiramo barvo pogovora. 
+5.  V menu-ju lahko izbiramo barvo pogovora ter velikost pisave
 6.  S klikom na gumb "Pobriši" pobrišemo dosedanji pogovor
+7. S klikom na gumb Odjava se odjavimo
